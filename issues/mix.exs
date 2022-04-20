@@ -28,6 +28,7 @@ defmodule Issues.MixProject do
       { :poison, "~>5.0" },
       { :ex_doc, "~> 0.25" },
       { :earmark, "~> 1.4" },
+      { :excoveralls, "~>0.14", only: :test}
     ]
   end
 
