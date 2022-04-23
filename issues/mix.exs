@@ -9,7 +9,14 @@ defmodule Issues.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       name: "Issues",
-      source_url: "https://github.com/pragdave/issues",
+      source_url: 'https://github.com/pragdave/issues',
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.details": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       deps: deps()
     ]
   end
@@ -24,11 +31,11 @@ defmodule Issues.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      { :httpoison, "~> 1.0" },
-      { :poison, "~>5.0" },
-      { :ex_doc, "~> 0.25" },
-      { :earmark, "~> 1.4" },
-      { :excoveralls, "~>0.14", only: :test}
+      {:httpoison, "~> 1.0"},
+      {:poison, "~>5.0"},
+      {:ex_doc, "~> 0.25"},
+      {:earmark, "~> 1.4"},
+      {:excoveralls, "~>0.14", only: :test}
     ]
   end
 

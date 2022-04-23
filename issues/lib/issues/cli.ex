@@ -1,5 +1,5 @@
 defmodule Issues.CLI do
-  import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
+  import Issues.TableFormatter, only: [print_table_for_columns: 2]
   @default_count 4
   @moduledoc """
   명령줄 파싱을 수행한 뒤, 각종 함수를 호출해
@@ -18,9 +18,10 @@ defmodule Issues.CLI do
   end
 
   def process(:help) do
-    IO.puts """
+    IO.puts("""
     usage: issues <user> <project> [ count | #{@default_count} ]
-    """
+    """)
+
     System.halt(0)
   end
 
@@ -35,7 +36,7 @@ defmodule Issues.CLI do
   def last(list, count) do
     list
     |> Enum.take(count)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
 
   def sort_into_descending_order(list_of_issues) do
@@ -45,28 +46,29 @@ defmodule Issues.CLI do
     end)
   end
 
-  def decode_response({ :ok, body }), do: body
+  def decode_response({:ok, body}), do: body
 
   def decode_response({:error, error}) do
-    IO.puts "error fetching from Github: #{error["message"]}"
+    IO.puts("error fetching from Github: #{error["message"]}")
     System.halt(2)
   end
 
   def parse_args(argv) do
-    OptionParser.parse(argv, switches: [ help: :boolean ], aliases: [ h: :help ])
+    OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
     |> elem(1)
     |> args_to_internal_representation()
   end
 
   def args_to_internal_representation([user, project, count]) do
-    { user, project, String.to_integer(count) }
+    {user, project, String.to_integer(count)}
   end
 
   def args_to_internal_representation([user, project]) do
-    { user, project, @default_count }
+    {user, project, @default_count}
   end
 
-  def args_to_internal_representation(_) do # 잘못된 인자 또는 --help
+  # 잘못된 인자 또는 --help
+  def args_to_internal_representation(_) do
     :help
   end
 end
